@@ -1,4 +1,4 @@
-class PhotosController < ApplicationController
+class PhotosController < ProtectedController
   before_action :set_photo, only: [:show, :update, :destroy]
   def index
     @photos = Photo.all
