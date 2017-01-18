@@ -11,7 +11,7 @@ class PhotosController < ProtectedController
   end
 
   def set_photo
-    @photo = Photo.find(params[:id])
+    @photo = current_user.photos.find(params[:id])
   end
 
   def photo_params
@@ -19,10 +19,12 @@ class PhotosController < ProtectedController
   end
 
   def create
+    photo_params = params.require(:photo)
+                         .permit(:name, :category, :url)
+                         .merge(user_id: current_user.id)
     @photo = Photo.new(photo_params)
-
     if @photo.save
-      render json: @photo, status: :created, location: @photo
+      render json: @photo, status: :created
     else
       render json: @photo.errors, status: :unprocessable_entity
     end
