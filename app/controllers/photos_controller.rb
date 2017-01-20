@@ -15,7 +15,7 @@ class PhotosController < ProtectedController
   end
 
   def photo_params
-    params.require(:photo).permit(:name, :category, :url, :user_id)
+    params.require(:photo).permit(:name, :category, :url, :rating, :user_id)
   end
 
   def create
